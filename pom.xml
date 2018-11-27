@@ -116,7 +116,7 @@
 				<artifactId>dockerfile-maven-plugin</artifactId>
 				<version>1.4.9</version>
 				<configuration>
-					<repository>ztdev/${project.name}</repository>
+					<repository>registry.raxtone.com/raxtone/${project.name}</repository>
 					<tag>${project.version}</tag>
 					<contextDirectory>${project.build.directory}/docker</contextDirectory>
 				</configuration>
