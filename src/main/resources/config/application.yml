@@ -1,0 +1,10 @@
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+
+#debug: true
+
+#logging:
+#  level:
+#    "*": DEBUG
+
+server:
+  port: 8081

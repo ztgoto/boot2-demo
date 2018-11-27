@@ -1,0 +1,4 @@
+spring:
+  application:
+#    index: ${spring.cloud.client.ipAddress}:${server.port}
+    name: demo
