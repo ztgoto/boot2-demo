@@ -1,0 +1,9 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  script:
+    - mvn clean package
+  stage: build
