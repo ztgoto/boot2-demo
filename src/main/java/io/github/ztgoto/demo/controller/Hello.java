@@ -8,7 +8,7 @@ public class Hello {
 	
 	@RequestMapping
 	public String hello(){
-		return "hello world haha!";
+		return "hello world!";
 	}
 
 }
