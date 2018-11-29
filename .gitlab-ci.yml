@@ -7,3 +7,5 @@ build:
   script:
     - mvn clean package
   stage: build
+  only:
+    - test
