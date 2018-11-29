@@ -5,6 +5,7 @@ stages:
 
 build:
   script:
+    - echo $CI_COMMIT_REF_NAME
     - mvn clean package
   stage: build
   only:
