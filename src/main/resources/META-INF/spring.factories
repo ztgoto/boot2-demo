@@ -1,0 +1,7 @@
+# Application Listeners
+org.springframework.context.ApplicationListener=\
+io.github.ztgoto.demo.context.ResourceApplicationListener
+
+# Application Context Initializers
+org.springframework.context.ApplicationContextInitializer=\
+io.github.ztgoto.demo.context.ConfigurationApplicationContextInitializer
