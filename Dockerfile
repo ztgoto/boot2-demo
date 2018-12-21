@@ -1,4 +1,4 @@
-FROM registry.raxtone.com/raxtone/java:1.8
+FROM ztdev/java:1.8
 
 LABEL maintainer="zhaotian"
 
