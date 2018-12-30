@@ -4,7 +4,7 @@
 
 	<groupId>io.github.ztgoto</groupId>
 	<artifactId>boot2-demo</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.3</version>
 	<packaging>jar</packaging>
 
 	<name>boot2-demo</name>
@@ -16,6 +16,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+		<server.port>8081</server.port>
 	</properties>
 
 	<dependencyManagement>
@@ -84,11 +85,28 @@
 				<includes>
 					<include>Dockerfile</include>
 					<include>.dockerignore</include>
+					<include>Kubernetes.yml</include>
+					<include>docker-compose.yml</include>
 				</includes>
 			</resource>
 			<!-- <resource> <directory>src/main/java</directory> <includes> <include>**/*.xml</include> 
 				</includes> </resource> -->
 		</resources>
+		
+		<pluginManagement>
+			<plugins>
+				<plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <configuration>
+                        <delimiters>
+                            <delimiter>{{*}}</delimiter>
+                        </delimiters>
+                        <useDefaultDelimiters>false</useDefaultDelimiters>
+                    </configuration>
+                </plugin>
+			</plugins>
+		</pluginManagement>
+		
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -127,6 +145,7 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<!-- mvn dockerfile:build -->
 				<groupId>com.spotify</groupId>
 				<artifactId>dockerfile-maven-plugin</artifactId>
 				<version>1.4.9</version>
@@ -134,6 +153,7 @@
 					<repository>ztdev/${project.name}</repository>
 					<tag>${project.version}</tag>
 					<contextDirectory>${project.build.directory}/docker</contextDirectory>
+					<noCache>true</noCache>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -1,0 +1,24 @@
+version: '3'
+services:
+  {{project.name}}:
+    image: ztdev/{{project.name}}:{{project.version}}
+#    container_name: {{project.name}}
+    env_file:
+      - /etc/dev/config.env
+#    environment:
+#      profiles: dev
+    networks:
+      - scnet
+    ports:
+      - "{{server.port}}:{{server.port}}"
+    command: ["java", "-server", "-Xms128m", "-Xmx512m", "-jar", "lib/{{project.build.finalName}}.{{project.packaging}}", "--spring.profiles.active=$(spring.profiles.active)"]
+#    entrypoint:
+#      - java
+
+networks:
+  scnet:
+    external: true
+    
+#configs:
+#  app-env-config:
+#    external: true

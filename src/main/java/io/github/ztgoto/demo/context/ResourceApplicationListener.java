@@ -17,6 +17,8 @@ public class ResourceApplicationListener implements ApplicationListener<Applicat
 	
 	public static final int DEFAULT_ORDER = Ordered.HIGHEST_PRECEDENCE + 15;
 	
+	public static final String ENABLED_CONFIG_KEY = "customize:config:enabled";
+	
 	private int order = DEFAULT_ORDER;
 	
 	private static final String CUSTOMIZE_PROPERTIES = "customizeProperties";
@@ -39,7 +41,7 @@ public class ResourceApplicationListener implements ApplicationListener<Applicat
 //		MapPropertySource s = new MapPropertySource(name, source)
 		
 		Map<String, Object> properties = new HashMap<>();
-		properties.put("server.port", 9090);
+//		properties.put("server.port", 9090);
 		
 		MapPropertySource ps = new MapPropertySource(CUSTOMIZE_PROPERTIES, properties);
 		

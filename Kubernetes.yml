@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{project.name}}
+spec:
+  selector:
+    matchLabels:
+      name: {{project.name}}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: {{project.name}}
+        commitid: {{commitid}}
+    spec:
+      containers:
+        - name: {{project.name}}
+          image: ztdev/{{project.name}}:{{project.version}}
+          imagePullPolicy: Always
+          env:
+            - name: spring.profiles.active
+              valueFrom:
+                configMapKeyRef:
+                  name: app-env-config
+                  key: profiles
+          command: ["java", "-server", "-Xms128m", "-Xmx512m", "-jar", "lib/{{project.build.finalName}}.{{project.packaging}}", "--spring.profiles.active=$(spring.profiles.active)"]
+          
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{project.name}}
+spec:
+  selector:
+    name: {{project.name}}
+  type: NodePort
+  ports:
+    - nodePort: 31000 # default range 30000-32767
+      port: {{server.port}}
+      targetPort: {{server.port}}
+
+
+
+          

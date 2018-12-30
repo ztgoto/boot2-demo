@@ -1,12 +1,44 @@
 stages:
-  - build
   - test
-  - deploy
+  - build
+#  - deploy
 
+variables:
+  DOCKER_HOST: tcp://192.168.4.119:2376
+
+before_script:
+  - echo $DOCKER_HOST
+  - echo $CI_BUILD_REF_NAME
+  - echo $CI_BUILD_REF
+
+#build:
+#  script:
+#    - echo $CI_BUILD_REF_NAME
+#    - mvn clean package
+#  stage: build
+#  only:
+#    - test
+
+test:
+  script:
+    - mvn clean test
+  stage: test
+  only:
+    - dev
+  
 build:
   script:
-    - echo $CI_BUILD_REF_NAME
-    - mvn clean package
+    - mvn package -DskipTests
+    - mvn dockerfile:build
+    - mvn dockerfile:push
+#    - kubectl delete --ignore-not-found=true  -f target/docker/Kubernetes.yml
+    - cat target/docker/Kubernetes.yml | sed 's/{{commitid}}/'$CI_BUILD_REF'/g' | kubectl apply --namespace=$CI_BUILD_REF_NAME -f -
   stage: build
   only:
-    - test
+    - dev
+  
+#deploy:
+#  script:
+#    - mvn dockerfile:push
+#    - kubectl apply -f target/docker/Kubernetes.yml
+#  stage: deploy
