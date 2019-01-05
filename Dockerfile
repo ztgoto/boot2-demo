@@ -1,6 +1,10 @@
 FROM ztdev/java:1.8
 
+ARG commit
+
 LABEL maintainer="zhaotian"
+LABEL commmit=${commit}
+LABEL name={{project.build.finalName}}
 
 WORKDIR /project
 

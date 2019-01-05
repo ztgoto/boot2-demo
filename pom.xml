@@ -154,6 +154,9 @@
 					<tag>${project.version}</tag>
 					<contextDirectory>${project.build.directory}/docker</contextDirectory>
 					<noCache>true</noCache>
+					<buildArgs>
+						<commit>${commit}</commit>
+					</buildArgs>
 				</configuration>
 			</plugin>
 		</plugins>

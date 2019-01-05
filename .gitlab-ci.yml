@@ -29,7 +29,7 @@ test:
 build:
   script:
     - mvn package -DskipTests
-    - mvn dockerfile:build
+    - mvn dockerfile:build -Dcommit=$CI_BUILD_REF
     - mvn dockerfile:push
 #    - kubectl delete --ignore-not-found=true  -f target/docker/Kubernetes.yml
     - cat target/docker/Kubernetes.yml | sed 's/{{commitid}}/'$CI_BUILD_REF'/g' | kubectl apply --namespace=$CI_BUILD_REF_NAME -f -
